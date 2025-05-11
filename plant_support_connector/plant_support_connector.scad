@@ -1,46 +1,28 @@
-// Customizable parameters
-height = 29;		// Height of the connector halves
-outer_radius = 9.5;	// Outer radius of the cylindrical part
-inner_radius = 7.5;	// Inner radius of the hollow space
-cube_width = 10;	// Width of the rectangular cutout
-cube_length = 20;	// Length of the rectangular cutout
-cube_offset = 10;	// Offset of the rectangular cutout from center
-halves_distance = 16.5; // Distance between the two halves
-epsilon = 0.002;	// Small addition to ensure proper differences
+height = 29;
+outer_size = 2;
+inner_radius = 7.5;
+halves_distance = inner_radius * 2 + outer_size;
+aperture_width = 10;
 
-// Higher quality settings
-$fa = 1;    // Minimum angle for fragments
-$fs = 0.4;  // Minimum size of fragments
-
-module empty_space(height) {
-	// Central cylindrical cutout
-	cylinder(h=height+epsilon, r=inner_radius, center=true);
-
-	// Rectangular cutout
-	translate([0, cube_offset, 0])
-		cube([cube_width, cube_length, height+epsilon], center=true);
-}
+$fa = 1;
+$fs = 0.4;
 
 module connector_half() {
-	difference() {
-		// External shape
-		cylinder(h=height, r=outer_radius, center=true);
-
-		// Internal cutout
-		empty_space(height);
+	aperture_angle = 2 * asin(aperture_width / (2 * inner_radius));
+	resize([0,0,height])
+	rotate(aperture_angle/2)
+	rotate_extrude(angle=360-aperture_angle) {
+		translate([inner_radius + outer_size/2, 0])
+			square(outer_size, center=true);
 	}
 }
 
-// Create the full connector
 module full_connector() {
-	// First half
 	connector_half();
 
-	// Second half
-	translate([0, -halves_distance, 0])
-	rotate([0, 90, 180])
+	translate([-halves_distance, 0, 0])
+		rotate([-90, 0, 180])
 		connector_half();
 }
 
-// Generate the model
 full_connector();
