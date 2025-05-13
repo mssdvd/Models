@@ -3,6 +3,7 @@ outer_width_1 = 2;
 outer_width_2 = 2.1;
 inner_radius = 5.5;
 halves_distance = inner_radius * 2 + max(outer_width_1, outer_width_2);
+aperture_angle = 110;
 
 $fa = 1;
 $fs = 0.4;
