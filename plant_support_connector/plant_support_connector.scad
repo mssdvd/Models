@@ -19,7 +19,9 @@ module connector_half(outer_width) {
 module full_connector() {
 	connector_half(outer_width_1);
 
-	translate([-halves_distance, 0, -2.5])
+	down = inner_radius + outer_width_2 - height / 2;
+
+	translate([-halves_distance, 0, down])
 		rotate([-90, -90, 180])
 		connector_half(outer_width_2);
 }
