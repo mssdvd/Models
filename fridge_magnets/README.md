@@ -1,6 +1,6 @@
-# Refrigerator magnets
+# Fridge magnets
 
-![Refrigerator magnets](./.refrigerator_magnets.png)
+![Fridge magnets](./.fridge_magnets.png)
 
   * Magnet size: 5 mm * 1.6 mm
   * Nozzle size: 0.4 mm
